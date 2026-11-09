@@ -17,3 +17,19 @@ python -m pip install -r backend/requirements.txt
 cd backend
 uvicorn app.main:app --reload
 ```
+
+## Run a safe local health check
+
+With the backend running, open a second terminal at the repository root and run:
+
+```powershell
+python attack_lab.py --requests 5 --interval 2
+```
+
+The health-check script contacts only `http://127.0.0.1:8000/`. It makes at most
+10 sequential requests per run, with at least one second between requests. A
+successful check prints an HTTP status for each request; if the API is
+unavailable, confirm that the backend is running.
+
+This local check verifies API availability only; it does not simulate attacks
+or verify firewall mitigation.
